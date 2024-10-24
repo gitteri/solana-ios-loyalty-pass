@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/server-files/token/token.json
+/server-files/certs/*
+/server-files/issuer/*
+/server-files/solana.pass/*

@@ -1,101 +1,93 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import React from 'react';
+import Link from 'next/link';
+import { useWalletsState } from './context/WalletContext';
+import { useSpl } from './context/SplContext';
+
+/**
+ * Home component: The main landing page of the Loyalty Pass application
+ * It displays different content based on the user's wallet and token status
+ */
+const Home: React.FC = () => {
+  const { wallet } = useWalletsState();
+  const { splToken } = useSpl();
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    <div className="container mx-auto px-4">
+      <h1 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white">Welcome to Loyalty Pass</h1>
+      <p className="text-xl mb-8 text-gray-700 dark:text-gray-300">
+        Create and manage Apple Wallet passes for your loyalty program.
+      </p>
+      
+      {renderContent(wallet, splToken)}
     </div>
   );
-}
+};
+
+/**
+ * Renders the appropriate content based on the user's wallet and token status
+ * @param wallet - The user's wallet object
+ * @param splToken - The user's SPL token object
+ * @returns JSX.Element - The rendered content
+ */
+const renderContent = (wallet: any, splToken: any): JSX.Element => {
+  if (!wallet) {
+    return (
+      <p className="text-xl mb-8 text-gray-700 dark:text-gray-300">
+        Please wait for your wallet to be generated.
+      </p>
+    );
+  }
+
+  if (!splToken) {
+    return (
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">Create a Loyalty Token</h2>
+        <p className="text-xl mb-8 text-gray-700 dark:text-gray-300">
+          You haven't created your loyalty token yet. Let's get started!
+        </p>
+        <Link href="/token" className="bg-purple-600 hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-800 text-white font-bold py-2 px-4 rounded inline-block">
+          Create Loyalty Token
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <ActionCard
+        title="Create a Pass"
+        description="Start by creating your custom Solana-enabled Apple Wallet pass."
+        linkText="Get Started"
+        linkHref="/passes/create"
+      />
+      <ActionCard
+        title="Learn More"
+        description="Discover how Loyalty Pass can enhance your loyalty program."
+        linkText="View Docs"
+        linkHref="/docs"
+      />
+    </div>
+  );
+};
+
+/**
+ * ActionCard component: Renders a card with a title, description, and action link
+ */
+const ActionCard: React.FC<{
+  title: string;
+  description: string;
+  linkText: string;
+  linkHref: string;
+}> = ({ title, description, linkText, linkHref }) => (
+  <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">{title}</h2>
+    <p className="mb-4 text-gray-600 dark:text-gray-400">{description}</p>
+    <Link href={linkHref} className="bg-purple-600 hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-800 text-white font-bold py-2 px-4 rounded inline-block">
+      {linkText}
+    </Link>
+  </div>
+);
+
+export default Home;
