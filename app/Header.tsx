@@ -68,8 +68,6 @@ const Header: FC = () => {
               <li><button onClick={() => handleNavigation('/token')} className="block py-2 md:py-0 text-gray-800 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Loyalty Token</button></li>
               <li><button onClick={() => handleNavigation('/passes/redeem')} className="block py-2 md:py-0 text-gray-800 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Redeem Pass</button></li>
               <li><button onClick={() => handleNavigation('/passes/create')} className="block py-2 md:py-0 text-gray-800 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Create Pass</button></li>
-              <li><button onClick={() => handleNavigation('/passes')} className="block py-2 md:py-0 text-gray-800 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Passes</button></li>
-              <li><button onClick={() => handleNavigation('/about')} className="block py-2 md:py-0 text-gray-800 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors">About</button></li>
             </Fragment>
           )}
           {wallet && !splToken && (

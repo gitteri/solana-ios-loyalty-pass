@@ -62,12 +62,6 @@ const renderContent = (wallet: any, splToken: any): JSX.Element => {
         linkText="Get Started"
         linkHref="/passes/create"
       />
-      <ActionCard
-        title="Learn More"
-        description="Discover how Loyalty Pass can enhance your loyalty program."
-        linkText="View Docs"
-        linkHref="/docs"
-      />
     </div>
   );
 };
