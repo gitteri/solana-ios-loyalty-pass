@@ -22,12 +22,12 @@ const Footer: FC = () => {
 const SocialLinks: FC = () => (
   <div className="flex space-x-6">
     <SocialLink
-      href="https://github.com/solana-developers/solana-loyalty-pass"
+      href="https://github.com/gitteri/solana-ios-loyalty-pass"
       ariaLabel="GitHub"
       icon={<GitHubIcon />}
     />
     <SocialLink
-      href="https://twitter.com/solana"
+      href="https://twitter.com/nocircuit"
       ariaLabel="Twitter"
       icon={<TwitterIcon />}
     />
