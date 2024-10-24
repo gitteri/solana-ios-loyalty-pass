@@ -9,7 +9,7 @@ const Footer: FC = () => {
       <div className="container mx-auto px-2">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <SocialLinks />
-          <Copyright />
+          <PoweredBySolana />
         </div>
       </div>
     </footer>
@@ -70,9 +70,9 @@ const TwitterIcon: FC = () => (
 /**
  * Renders the copyright information.
  */
-const Copyright: FC = () => (
+const PoweredBySolana: FC = () => (
   <p className="text-sm text-gray-600 dark:text-gray-400 mt-4 md:mt-0">
-    © {new Date().getFullYear()} Solana Loyalty Pass. All rights reserved.
+    Powered by <a href="https://solana.com" target="_blank" rel="noopener noreferrer">Solana</a>
   </p>
 );
 
